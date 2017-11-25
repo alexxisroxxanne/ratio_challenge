@@ -1,5 +1,12 @@
 # FoodTech Coding Challenge
+
 ## Setup
 1. Use git to clone this repository locally
 2. Run `npm install` to install the `node_modules` folder
 3. Run `npm test` to run the test suite in your terminal
+
+## Running the Code
+If you want to test your own inputs, you can either write more tests with mocha/chai in `test.js` or you can follow the steps below to log output to the console.
+1. Anywhere below the module imports at the top of the file, call the function `getPortions` with your sample input, e.g. `getPortions({1: 1}, 1);`
+2. Log the output using `console.log(WHAT_YOU_WANT_TO_PRINT);`
+3. In your terminal from the base directory of this repo, run `node food_tech_coding_challenge.js` -- you should see your output logged to the console.

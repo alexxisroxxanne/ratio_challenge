@@ -26,7 +26,10 @@
 // f({}, 1) -> {}
 // f({1: 1}, 2) -> {1: 2}
 // f({1: 1}, 0) -> {1: 0}
-// f({1: 1, 2: 1, 3: 1}) -> {1: 4, 2: 4, 3: 3}
+// f({1: 1, 2: 1, 3: 1}, 11) -> {1: 4, 2: 4, 3: 3}
+// f({1: 2, 2: 1, 3: 1}, 11) -> {1: 6, 2: 3, 3: 2}
+
+// (total / num items) * ratio
 
 // using lodash for utility functions
 const _ = require('lodash');
@@ -37,8 +40,35 @@ function getPortions(ratios, totalPortions) {
     return {};
   }
 
-  return ratios;
+  let remainingPortions = totalPortions;
+  let numOfItems = _.size(ratios);
+
+  let portionedMeal = _.reduce(ratios, (portionedItems, currentRatio, itemId) => {
+    let portion = getItemPortion(currentRatio, totalPortions, remainingPortions, numOfItems);
+    portionedItems[itemId] = portion;
+    remainingPortions -= portion;
+    return portionedItems;
+  }, {});
+
+  return portionedMeal;
 }
+
+
+
+function getItemPortion(ratio, totalPortions, remainingPortions, numOfItems) {
+  if (!remainingPortions || !ratio) {
+    return 0;
+  }
+
+  let portion = _.round( (totalPortions / ratio) * numOfItems );
+
+  if (portion > remainingPortions) {
+    portion = remainingPortions;
+  }
+
+  return portion;
+}
+
 
 
 function hasValidArguments(ratios, totalPortions) {

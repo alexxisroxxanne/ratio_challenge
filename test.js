@@ -38,10 +38,15 @@ describe('getPortions', () => {
     it('should assign all portions to the item when there is only one meal item', () => {
       let singleItemMeal1 = getPortions({1: 1}, 2);
       let singleItemMeal2 = getPortions({1: 1}, 0);
+      expect(singleItemMeal1).to.deep.equal({1: 2});
+      expect(singleItemMeal2).to.deep.equal({1: 0});
     });
 
     it('should handle a ratio of 0', () => {
-
+      let zeroPortions1 = getPortions({1: 0, 2: 1}, 1);
+      let zeroPortions2 = getPortions({1: 0}, 8);
+      expect(zeroPortions1).to.deep.equal({1: 0, 2: 1});
+      expect(zeroPortions2).to.deep.equal({1: 0});
     });
   });
 });

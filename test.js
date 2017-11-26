@@ -51,23 +51,23 @@ describe('getPortions', () => {
 
     it('should assign the correct portions', () => {
       let args1 = [{1: 1, 2: 1, 3: 1}, 12];
+      let args2 = [{1: 2, 2: 1, 3: 1}, 12];
       expect(getPortions(...args1)).to.deep.equal({1: 4, 2: 4, 3: 4});
-
-      let args2 = [{1: 1, 2: 1, 3: 1}, 11];
-      expect(getPortions(...args2)).to.deep.equal({1: 4, 2: 4, 3: 3});
-
-      let args3 = [{1: 2, 2: 1, 3: 1}, 12];
-      expect(getPortions(...args3)).to.deep.equal({1: 6, 2: 3, 3: 3});
-
-      let args4 = [{1: 2, 2: 1, 3: 1}, 11];
-      expect(getPortions(...args4)).to.deep.equal({1: 6, 2: 3, 3: 2});
+      expect(getPortions(...args2)).to.deep.equal({1: 6, 2: 3, 3: 3});
     });
 
     it('should handle any number of items and ratios', () => {
-      expect(getPortions({1: 1, 2: 2}, 15)).to.deep.equal({1: 5, 2: 10});
       let largeIn = {1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1};
       let largeOut = {1: 10, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10};
+      expect(getPortions({1: 1, 2: 2}, 15)).to.deep.equal({1: 5, 2: 10});
       expect(getPortions(largeIn, 100)).to.deep.equal(largeOut);
+    });
+
+    it('should only output integer portion counts', () => {
+      let unevenPortions1 = [{1: 1, 2: 1, 3: 1}, 11];
+      let unevenPortions2 = [{1: 2, 2: 1, 3: 1}, 11];
+      expect(getPortions(...unevenPortions1)).to.deep.equal({1: 4, 2: 4, 3: 3});
+      expect(getPortions(...unevenPortions2)).to.deep.equal({1: 6, 2: 3, 3: 2});
     });
   });
 });

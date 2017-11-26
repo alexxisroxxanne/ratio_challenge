@@ -48,5 +48,19 @@ describe('getPortions', () => {
       expect(zeroPortions1).to.deep.equal({1: 0, 2: 1});
       expect(zeroPortions2).to.deep.equal({1: 0});
     });
+
+    it('should assign the correct portions', () => {
+      let args1 = [{1: 1, 2: 1, 3: 1}, 12];
+      expect(getPortions(...args1)).to.deep.equal({1: 4, 2: 4, 3: 4});
+
+      let args2 = [{1: 1, 2: 1, 3: 1}, 11];
+      expect(getPortions(...args2)).to.deep.equal({1: 4, 2: 4, 3: 3});
+
+      let args3 = [{1: 2, 2: 1, 3: 1}, 12];
+      expect(getPortions(...args3)).to.deep.equal({1: 6, 2: 3, 3: 3});
+
+      let args4 = [{1: 2, 2: 1, 3: 1}, 11];
+      expect(getPortions(...args4)).to.deep.equal({1: 6, 2: 3, 3: 2});
+    });
   });
 });

@@ -1,9 +1,10 @@
 # FoodTech Coding Challenge
 
 ## Setup
-1. Use git to clone this repository locally
-2. Run `npm install` to install the `node_modules` folder
-3. Run `npm test` to run the test suite in your terminal
+1. Run `git clone https://github.com/alexxisroxxanne/ratio_challenge.git` to clone this repository
+2. From your terminal, navigate to the cloned repo
+3. Run `npm install` to install the `node_modules` folder
+4. Run `npm test` to run the test suite in your terminal
 
 ## Running the Code
 If you want to test your own inputs, you can either write more tests with mocha/chai in `test.js` or you can follow the steps below to log output to the console.

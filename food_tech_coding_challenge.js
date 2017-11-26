@@ -35,16 +35,17 @@
 const _ = require('lodash');
 
 
+
 function getPortions(ratios, totalPortions) {
   if (!hasValidArguments(ratios, totalPortions)) {
     return {};
   }
 
   let remainingPortions = totalPortions;
-  let numOfItems = _.size(ratios);
+  let totalRatio = getTotalRatio(ratios);
 
   let portionedMeal = _.reduce(ratios, (portionedItems, currentRatio, itemId) => {
-    let portion = getItemPortion(currentRatio, totalPortions, remainingPortions, numOfItems);
+    let portion = getItemPortion(currentRatio, totalPortions, remainingPortions, totalRatio);
     portionedItems[itemId] = portion;
     remainingPortions -= portion;
     return portionedItems;
@@ -55,12 +56,21 @@ function getPortions(ratios, totalPortions) {
 
 
 
-function getItemPortion(ratio, totalPortions, remainingPortions, numOfItems) {
+function getTotalRatio(ratios) {
+  return _.reduce(ratios, (totalRatio, ratio) => {
+    totalRatio += ratio;
+    return totalRatio;
+  }, 0);
+}
+
+
+
+function getItemPortion(ratio, totalPortions, remainingPortions, totalRatio) {
   if (!remainingPortions || !ratio) {
     return 0;
   }
 
-  let portion = _.round( (totalPortions / ratio) * numOfItems );
+  let portion = _.round( (totalPortions / totalRatio) * ratio );
 
   if (portion > remainingPortions) {
     portion = remainingPortions;
@@ -85,6 +95,7 @@ function hasValidArguments(ratios, totalPortions) {
   });
   return isValid;
 }
+
 
 
 module.exports = getPortions;

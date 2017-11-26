@@ -1,5 +1,8 @@
 # FoodTech Coding Challenge
 
+## Environment
+Please ensure that you're running `node v6.0.0` or greater before attempting to use this program.
+
 ## Setup
 1. Run `git clone https://github.com/alexxisroxxanne/ratio_challenge.git` to clone this repository
 2. From your terminal, navigate to the cloned repo
